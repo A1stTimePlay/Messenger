@@ -24,6 +24,5 @@ create table friendlist(
     constraint FK_friendlist foreign key(AccountID) references account(AccountID)
 )
 
-abc
     
     
