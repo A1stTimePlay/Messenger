@@ -9,7 +9,7 @@ module.exports = {
         let sql = 'SELECT * FROM account'
         db.query(sql, (err, response) => {
             if (err) throw err
-            res.json(response[0])
+            res.json(response[])
         })
     },
     detail: (req, res) => {
@@ -30,7 +30,7 @@ module.exports = {
     },
     store: (req, res) => {
         let data = req.body;
-        let sql = 'INSERT INTO products SET ?'
+        let sql = 'INSERT INTO Account SET ?'
         db.query(sql, [data], (err, response) => {
             if (err) throw err
             res.json({message: 'Insert success!'})
