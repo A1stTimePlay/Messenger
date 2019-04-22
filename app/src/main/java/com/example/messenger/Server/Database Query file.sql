@@ -23,5 +23,6 @@ create table friendlist(
     FriendUsername varchar(30),
     constraint FK_friendlist foreign key(AccountID) references account(AccountID)
 )
+
     
     
