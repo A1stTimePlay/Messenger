@@ -22,7 +22,7 @@ module.exports = {
     update: (req, res) => {
         let data = req.body;
         let productId = req.params.productId;
-        let sql = 'UPDATE products SET ? WHERE id = ?'
+        let sql = 'UPDATE account SET ? WHERE AccountID = ?'
         db.query(sql, [data, productId], (err, response) => {
             if (err) throw err
             res.json({message: 'Update success!'})
@@ -37,8 +37,8 @@ module.exports = {
         })
     },
     delete: (req, res) => {
-        let sql = 'DELETE FROM products WHERE id = ?'
-        db.query(sql, [req.params.productId], (err, response) => {
+        let sql = 'DELETE FROM Account WHERE AccountID = ?'
+        db.query(sql, [req.params.AccountId], (err, response) => {
             if (err) throw err
             res.json({message: 'Delete success!'})
         })

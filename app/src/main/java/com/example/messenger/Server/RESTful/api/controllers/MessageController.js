@@ -19,4 +19,13 @@ module.exports = {
             res.json(response)
         })
     },
+
+    store: (req, res) => {
+        let data = req.body;
+        let sql = 'INSERT INTO Account SET ?'
+        db.query(sql, [data], (err, response) => {
+            if (err) throw err
+            res.json({message: 'Insert success!'})
+        })
+    },
 }

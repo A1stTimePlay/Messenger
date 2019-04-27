@@ -15,7 +15,8 @@ module.exports = function(app) {
 
   app.route('/Message')
     .get(messageCtrl.get)
+    .post(messageCtrl.store);
 
   app.route('/Message/:MessageId')
-      .get(messageCtrl.detail)
+    .get(messageCtrl.detail);
 };
