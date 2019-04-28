@@ -11,15 +11,29 @@ import com.example.messenger.Messaging.Messaging;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button btnLogin;
+    Button btnMessaging;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button placeholder= (Button) findViewById(R.id.button);
-        placeholder.setOnClickListener(new View.OnClickListener() {
+
+        btnLogin= (Button) findViewById(R.id.btnLogin);
+        btnMessaging= (Button) findViewById(R.id.btnMessaging);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent doSomeThing= new Intent(MainActivity.this, Login.class);
+                startActivity(doSomeThing);
+            }
+        });
+
+        btnMessaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent doSomeThing= new Intent(MainActivity.this, Messaging.class);
                 startActivity(doSomeThing);
             }
         });

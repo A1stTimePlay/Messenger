@@ -22,7 +22,7 @@ module.exports = {
 
     store: (req, res) => {
         let data = req.body;
-        let sql = 'INSERT INTO Account SET ?'
+        let sql = 'INSERT INTO message SET ?'
         db.query(sql, [data], (err, response) => {
             if (err) throw err
             res.json({message: 'Insert success!'})
