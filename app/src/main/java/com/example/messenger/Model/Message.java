@@ -16,6 +16,13 @@ public class Message {
         SentDate = sentDate;
     }
 
+    public Message(String content){
+        SenderID = "a4";
+        ReceiverID = "a5";
+        Content = content;
+        SentDate= "2019-5-1";
+    }
+
     public String getSentDate() {
         return SentDate;
     }

@@ -26,5 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/messaging" />
+
+        <Button
+            android:id="@+id/btnBeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Beta" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -3,7 +3,7 @@ module.exports = function(app) {
   let accountCtrl = require('./controllers/AccountController');
   let messageCtrl = require('./controllers/MessageController');
 
-  // todoList Routes
+
   app.route('/Account')
     .get(accountCtrl.get)
     .post(accountCtrl.store);
@@ -17,6 +17,9 @@ module.exports = function(app) {
     .get(messageCtrl.get)
     .post(messageCtrl.store);
 
-  app.route('/Message/:MessageId')
-    .get(messageCtrl.detail);
+  app.route('/Message/Receiver:ReceiverID')
+    .get(messageCtrl.GetReceiver);
+
+  app.route('/Message/Sender:SenderID')
+    .get(messageCtrl.GetSender);
 };
