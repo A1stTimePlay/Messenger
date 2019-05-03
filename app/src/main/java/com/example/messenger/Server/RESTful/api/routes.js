@@ -22,4 +22,7 @@ module.exports = function(app) {
 
   app.route('/Message/Sender:SenderID')
     .get(messageCtrl.GetSender);
+
+  app.route('/Message/Receiver:ReceiverID/Sender:SenderID')
+    .get(messageCtrl.getMessageForReceiverWhenSender)
 };

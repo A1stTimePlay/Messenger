@@ -16,11 +16,11 @@ public class Message {
         SentDate = sentDate;
     }
 
-    public Message(String content){
+    public Message(String content, String sentDate){
         SenderID = "a4";
         ReceiverID = "a5";
         Content = content;
-        SentDate= "2019-5-1";
+        SentDate= sentDate;
     }
 
     public String getSentDate() {
@@ -41,5 +41,21 @@ public class Message {
 
     public String getContent() {
         return Content;
+    }
+
+    public void setSenderID(String senderID) {
+        SenderID = senderID;
+    }
+
+    public void setReceiverID(String receiverID) {
+        ReceiverID = receiverID;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
+    public void setSentDate(String sentDate) {
+        SentDate = sentDate;
     }
 }

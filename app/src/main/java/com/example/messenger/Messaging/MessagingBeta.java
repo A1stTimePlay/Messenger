@@ -15,6 +15,8 @@ import com.example.messenger.Utils.RetrofitRoute;
 import com.example.messenger.Utils.RetrofitUtils;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,8 @@ import retrofit2.Response;
 
 public class MessagingBeta extends AppCompatActivity {
 
-    private List<String> data;
+    private List<String> Content;
+    private List<String> DataTime;
     private EditText etChatBox;
     private Button btnSend;
     MessageListAdapter adapter;
@@ -35,19 +38,8 @@ public class MessagingBeta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_beta);
 
-        //init variable
-        etChatBox= (EditText)  findViewById(R.id.edittext_chatbox);
-        btnSend= (Button) findViewById(R.id.button_chatbox_send);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_message_list);
-        data= new ArrayList<>();
-        retrofitRoute= RetrofitUtils.createRetrofitRoute();
+        initVariable();
 
-        //init RecyclerView
-        adapter = new MessageListAdapter(data);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //Set on click action for Send button
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,20 +50,43 @@ public class MessagingBeta extends AppCompatActivity {
         });
     }
 
+    public void initVariable(){
+        etChatBox= (EditText)  findViewById(R.id.edittext_chatbox);
+        btnSend= (Button) findViewById(R.id.button_chatbox_send);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_message_list);
+
+        Content= new ArrayList<>();
+        DataTime= new ArrayList<>();
+
+        retrofitRoute= RetrofitUtils.createRetrofitRoute();
+
+        adapter = new MessageListAdapter(Content, DataTime);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
     public void showMessage(){
-        data.add(etChatBox.getText().toString());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+
+        Content.add(etChatBox.getText().toString());
+        DataTime.add(dtf.format(now));
         adapter.notifyDataSetChanged();
     }
 
     public void sendMessage(){
-        String content=etChatBox.getText().toString();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
 
-        final Message message= new Message(content);
+        final Message message= new Message(etChatBox.getText().toString(), dtf.format(now));
         Call<Message> call= retrofitRoute.createMessage(message);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                System.out.println(response.code());
+                if (!response.isSuccessful()) {
+                    System.out.println(response.code());
+                }
+                System.out.println("Success sent message");
             }
 
             @Override

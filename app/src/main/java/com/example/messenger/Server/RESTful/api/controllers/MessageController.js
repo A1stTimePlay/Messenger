@@ -29,6 +29,14 @@ module.exports = {
         })
     },
 
+    getMessageForReceiverWhenSender: (reg, res) => {
+        let sql = 'SELECT * FROM message Where ReceiverID = ? and SenderID = ?'
+        db.query(sql, [reg.params.ReceiverID, reg.params.SenderID], (err, response) => {
+            if (err) throw err
+            res.json(response)
+        })
+    },
+
 
     store: (req, res) => {
         let data = req.body;

@@ -18,4 +18,7 @@ public interface RetrofitRoute {
     @POST("message")
     Call<Message>createMessage(@Body Message message);
 
+    @POST("account")
+    Call<Account>createAccount(@Body Account account);
+
 }

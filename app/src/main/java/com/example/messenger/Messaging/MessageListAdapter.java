@@ -16,12 +16,13 @@ import java.util.List;
 
 public class MessageListAdapter extends  RecyclerView.Adapter<MessageListAdapter.ViewHolder> {
 
-    private List<String> data = new ArrayList<>();
+    private List<String> Content = new ArrayList<>();
+    private List<String> DateTime = new ArrayList<>();
 
-    public MessageListAdapter(List<String> data){
-        this.data = data;
+    public MessageListAdapter(List<String> content, List<String> dateTime) {
+        Content = content;
+        DateTime = dateTime;
     }
-
 
     @NonNull
     @Override
@@ -33,12 +34,13 @@ public class MessageListAdapter extends  RecyclerView.Adapter<MessageListAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.textMessageBody.setText(data.get(i));
+        viewHolder.textMessageBody.setText(Content.get(i));
+        viewHolder.textMessageTime.setText(DateTime.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return Content.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
