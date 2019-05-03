@@ -1,7 +1,7 @@
 package com.example.messenger.Model;
 
 public class Account {
-    private String AccountID;
+    private Integer AccountID;
     private String Username;
     private String Password;
 
@@ -10,7 +10,7 @@ public class Account {
         Password = password;
     }
 
-    public String getAccountID() {
+    public int getAccountID() {
         return AccountID;
     }
 
@@ -22,7 +22,7 @@ public class Account {
         return Username;
     }
 
-    public void setAccountID(String accountID) {
+    public void setAccountID(int accountID) {
         AccountID = accountID;
     }
 

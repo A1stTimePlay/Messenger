@@ -29,9 +29,10 @@ module.exports = {
         })
     },
 
-    getMessageForReceiverWhenSender: (reg, res) => {
-        let sql = 'SELECT * FROM message Where ReceiverID = ? and SenderID = ?'
-        db.query(sql, [reg.params.ReceiverID, reg.params.SenderID], (err, response) => {
+    // Lấy các tin nhắn giữa A và B
+    getMessageListBetweenAB: (req, res) => {
+        let sql = 'SELECT * FROM message Where SenderID = ? and ReceiverID = ? UNION SELECT * from message WHERE SenderID = ? and ReceiverID = ? order by SentDate ASC'
+        db.query(sql, [req.query.A, req.query.B, req.query.B, req.query.A], (err, response) => {
             if (err) throw err
             res.json(response)
         })

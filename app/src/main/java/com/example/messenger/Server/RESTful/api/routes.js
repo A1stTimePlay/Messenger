@@ -4,7 +4,7 @@ module.exports = function(app) {
   let messageCtrl = require('./controllers/MessageController');
 
 
-  app.route('/Account')
+  app.route('/Accounts')
     .get(accountCtrl.get)
     .post(accountCtrl.store);
 
@@ -13,7 +13,7 @@ module.exports = function(app) {
     .put(accountCtrl.update)
     .delete(accountCtrl.delete);
 
-  app.route('/Message')
+  app.route('/Messages')
     .get(messageCtrl.get)
     .post(messageCtrl.store);
 
@@ -23,6 +23,7 @@ module.exports = function(app) {
   app.route('/Message/Sender:SenderID')
     .get(messageCtrl.GetSender);
 
-  app.route('/Message/Receiver:ReceiverID/Sender:SenderID')
-    .get(messageCtrl.getMessageForReceiverWhenSender)
+  app.route('/Message')
+    .get(messageCtrl.getMessageListBetweenAB);
+
 };

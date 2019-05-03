@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Message {
     private Integer MessageID; //nếu ta không set giá trị thì GSON sẽ tự động set = null -> JSON sẽ bỏ qua trường này -> MessageID tự tạo bởi REST
-    private String SenderID;
-    private String ReceiverID;
+    private int SenderID;
+    private int ReceiverID;
     private String Content;
     private String SentDate;
 
-    public Message(String senderID, String receiverID, String content, String sentDate) {
+    public Message(int senderID, int receiverID, String content, String sentDate) {
         SenderID = senderID;
         ReceiverID = receiverID;
         Content = content;
@@ -17,8 +17,8 @@ public class Message {
     }
 
     public Message(String content, String sentDate){
-        SenderID = "a4";
-        ReceiverID = "a5";
+        SenderID = 1;
+        ReceiverID = 2;
         Content = content;
         SentDate= sentDate;
     }
@@ -31,11 +31,11 @@ public class Message {
         return MessageID;
     }
 
-    public String getSenderID() {
+    public int getSenderID() {
         return SenderID;
     }
 
-    public String getReceiverID() {
+    public int getReceiverID() {
         return ReceiverID;
     }
 
@@ -43,11 +43,11 @@ public class Message {
         return Content;
     }
 
-    public void setSenderID(String senderID) {
+    public void setSenderID(int senderID) {
         SenderID = senderID;
     }
 
-    public void setReceiverID(String receiverID) {
+    public void setReceiverID(int receiverID) {
         ReceiverID = receiverID;
     }
 

@@ -26,8 +26,7 @@ import retrofit2.Response;
 
 public class MessagingBeta extends AppCompatActivity {
 
-    private List<String> Content;
-    private List<String> DataTime;
+    private List<Message> messageList;
     private EditText etChatBox;
     private Button btnSend;
     MessageListAdapter adapter;
@@ -53,24 +52,40 @@ public class MessagingBeta extends AppCompatActivity {
     public void initVariable(){
         etChatBox= (EditText)  findViewById(R.id.edittext_chatbox);
         btnSend= (Button) findViewById(R.id.button_chatbox_send);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_message_list);
-
-        Content= new ArrayList<>();
-        DataTime= new ArrayList<>();
+        final RecyclerView recyclerView = findViewById(R.id.recyclerview_message_list);
+        messageList= new ArrayList<>();
 
         retrofitRoute= RetrofitUtils.createRetrofitRoute();
 
-        adapter = new MessageListAdapter(Content, DataTime);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Call<List<Message>> call= retrofitRoute.getMessageBetweenAB(1,2);
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {    // Không hiểu sao nếu đem đoạn code này ra ngoài thì messageList rỗng
+                messageList=response.body();
+                adapter = new MessageListAdapter(MessagingBeta.this,messageList);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MessagingBeta.this));
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 
     public void showMessage(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime now = LocalDateTime.now();
 
-        Content.add(etChatBox.getText().toString());
-        DataTime.add(dtf.format(now));
+        String content= etChatBox.getText().toString();
+        String sentDate= dtf.format(now);
+
+        Message message= new Message(content, sentDate);
+        messageList.add(message);
         adapter.notifyDataSetChanged();
     }
 

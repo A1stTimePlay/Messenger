@@ -47,8 +47,8 @@ public class Messaging extends AppCompatActivity {
     }
 
     public void sendMessage(){
-        String sender= etSender.getText().toString();
-        String receiver= etReceiver.getText().toString();
+        int sender= Integer.parseInt(etSender.getText().toString());
+        int receiver= Integer.parseInt(etReceiver.getText().toString());
         String content= etContent.getText().toString();
         String sentDate= etSentDate.getText().toString();
 
