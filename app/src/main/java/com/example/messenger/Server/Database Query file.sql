@@ -53,6 +53,8 @@ values ("4", "5", "Hello world", "2019-4-5");
 insert into message(SenderID, ReceiverID, Content, SentDate)
 values ("1", "3", "Hello world", "2019-4-6");
 
+ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+
 drop database messagingapp
 
     

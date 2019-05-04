@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Messaging.MessagingBeta" />
         <activity android:name=".Login.Login" />
-        <activity android:name=".Messaging.Messaging" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
