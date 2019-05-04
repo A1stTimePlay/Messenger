@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.messenger.Login.Login;
-import com.example.messenger.Messaging.Messaging;
 import com.example.messenger.Messaging.MessagingBeta;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin= (Button) findViewById(R.id.btnLogin);
         btnMessaging= (Button) findViewById(R.id.btnMessaging);
-        btnBeta= (Button) findViewById(R.id.btnBeta);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,14 +32,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnMessaging.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent doSomeThing= new Intent(MainActivity.this, Messaging.class);
-                startActivity(doSomeThing);
-            }
-        });
-
-        btnBeta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent doSomeThing= new Intent(MainActivity.this, MessagingBeta.class);
