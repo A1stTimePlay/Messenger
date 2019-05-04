@@ -9,13 +9,21 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetrofitRoute {
 
-    @GET("account")
+    @GET("accounts")
     Call<List<Account>> getAccount();
 
-    @POST("message")
+    @POST("messages")
     Call<Message>createMessage(@Body Message message);
+
+    @POST("account")
+    Call<Account>createAccount(@Body Account account);
+
+    @GET("message")
+    Call<List<Message>> getMessageBetweenAB(@Query("A") int accountA, @Query("B") int accountB);
 
 }

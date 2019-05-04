@@ -2,23 +2,25 @@ create database MessagingApp;
 use MessagingApp;
 
 create table account(
-	AccountID varchar(10) primary key,
+	AccountID int auto_increment primary key,
     Username varchar(30),
     Password varchar(20)
 );
 
 create table message(
 	MessageID int auto_increment primary key,
-	SenderID varchar(10),
-    ReceiverID varchar(10),
+	SenderID int,
+    ReceiverID int,
     Content text,
-    SentDate Date,
-    constraint FK_sender foreign key (SenderID) references account(AccountID) on delete cascade,
+    SentDate DateTime,
+    constraint FK_sender foreign key (SenderID) references account(AccountID) on delete cascade, -- xóa account thì tự động xóa message
     constraint FK_receiver foreign key (ReceiverID) references account(AccountID) on delete cascade
 );
 
+alter table message auto_increment = 100; -- AccountID bắt đầu từ 0, MessageID bắt đầu từ 100 (known bug: có nhiều hơn 100 tài khoản thì sao?)
+
 create table friendlist(
-	FriendListID varchar(10) primary key,
+	FriendListID int auto_increment primary key,
     AccountID varchar(10),
     FriendID varchar(10),
     FriendUsername varchar(30),
@@ -27,26 +29,30 @@ create table friendlist(
 
 -- Insert dữ liệu mẫu 
 -- Bảng Account
-insert into account(AccountID, Username, Password)
-values ("a1", "abc", "123");
-insert into account(AccountID, Username, Password)
-values ("a2", "def", "123");
-insert into account(AccountID, Username, Password)
-values ("a3", "ghi", "123");
-insert into account(AccountID, Username, Password)
-values ("a4", "jkl", "123");
-insert into account(AccountID, Username, Password)
-values ("a5", "mno", "123");
+insert into account(Username, Password)
+values ("abc", "123");
+insert into account(Username, Password)
+values ("def", "123");
+insert into account(Username, Password)
+values ("ghi", "123");
+insert into account(Username, Password)
+values ("jkl", "123");
+insert into account(Username, Password)
+values ("mno", "123");
 -- Bảng Message
 insert into message(SenderID, ReceiverID, Content, SentDate)
-values ("a1", "a2", "Hello", "2019-4-27");
+values ("1", "2", "Hello", "2019-4-1");
 insert into message(SenderID, ReceiverID, Content, SentDate)
-values ("a2", "a1", "Hi", "2019-4-27");
+values ("2", "1", "Hi", "2019-4-2");
 insert into message(SenderID, ReceiverID, Content, SentDate)
-values ("a1", "a2", "How are you", "2019-4-27");
+values ("1", "2", "How are you", "2019-4-3");
 insert into message(SenderID, ReceiverID, Content, SentDate)
-values ("a2", "a1", "I am find, and you?", "2019-4-27");
+values ("2", "1", "I am find, and you?", "2019-4-4");
 insert into message(SenderID, ReceiverID, Content, SentDate)
-values ("a4", "a5", "Hello world", "2019-4-27");
+values ("4", "5", "Hello world", "2019-4-5");
+insert into message(SenderID, ReceiverID, Content, SentDate)
+values ("1", "3", "Hello world", "2019-4-6");
+
+drop database messagingapp
 
     

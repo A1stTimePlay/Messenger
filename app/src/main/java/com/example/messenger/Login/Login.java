@@ -22,6 +22,7 @@ public class Login extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btnSignIn;
+    Button btnSignUp;
     RetrofitRoute retrofitRoute;
 
 
@@ -30,53 +31,80 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUsername= (EditText) findViewById(R.id.etUsername);
-        etPassword= (EditText) findViewById(R.id.etPassword);
-        btnSignIn= (Button) findViewById(R.id.btnSignin);
-        retrofitRoute= RetrofitUtils.createRetrofitRoute();
+        initVariable();
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username= etUsername.getText().toString();
-                final String password= etPassword.getText().toString();
+                SignIn();
+            }
+        });
 
-                Call<List<Account>> call= retrofitRoute.getAccount();
-                call.enqueue(new Callback<List<Account>>() {
-                    @Override
-                    public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
-                        if (!response.isSuccessful()) {
-                            Toast toast = Toast.makeText(Login.this,response.code(), Toast.LENGTH_SHORT);
-                            toast.show();
-                            return;
-                        }
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignUp();
+            }
+        });
+    }
 
-                        List<Account> accounts= response.body();
+    public void initVariable() {
+        etUsername = (EditText) findViewById(R.id.etUsername);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btnSignIn = (Button) findViewById(R.id.btnSignin);
+        btnSignUp = (Button) findViewById(R.id.btnSignup);
+        retrofitRoute = RetrofitUtils.createRetrofitRoute();
+    }
 
-                        System.out.println("Username vừa nhập: "+username);
-                        System.out.println("Passeword vừa nhập: "+password);
-                        System.out.println("//////");
+    public void SignIn() {
+        final String username = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
 
-                        for (Account account: accounts){
-//                            if (account.getUsername()==username){
-//                                Toast toast= Toast.makeText(Login.this, "Successful", Toast.LENGTH_SHORT);
-//                                toast.show();
-//                                return;
-//                            }
-                            System.out.println("Username lấy từ server: "+ account.getUsername());
-                            System.out.println("Password lấy từ server: "+ account.getPassword());
-                            System.out.println("------");
-                        }
-//                        Toast toast= Toast.makeText(Login.this, "Failure", Toast.LENGTH_SHORT);
-//                        toast.show();
-                    }
+        Call<List<Account>> call = retrofitRoute.getAccount();
+        call.enqueue(new Callback<List<Account>>() {
+            @Override
+            public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println(response.code());
+                }
 
-                    @Override
-                    public void onFailure(Call<List<Account>> call, Throwable t) {
-                        Toast toast= Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_SHORT);
+                List<Account> accounts = response.body();
+                for (Account account : accounts) {
+                    if ((account.getUsername() == username) && (account.getPassword() == password)) {    // Known bug: Username/ Password nhập vào không bao giờ = Username/ Password lấy từ server
+                        Toast toast = Toast.makeText(Login.this, "Successful", Toast.LENGTH_SHORT);
                         toast.show();
+                        return;
                     }
-                });
+                }
+                Toast toast = Toast.makeText(Login.this, "Failure", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Account>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    public void SignUp() {
+        final String username = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
+        Account account= new Account(username, password);
+        Call<Account> call = retrofitRoute.createAccount(account);
+        call.enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println(response.code());
+                }
+                System.out.println("Success create account");
+
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+                System.out.println(t.getMessage());
             }
         });
     }

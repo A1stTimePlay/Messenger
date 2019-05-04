@@ -12,13 +12,32 @@ module.exports = {
             res.json(response)
         })
     },
-    detail: (req, res) => {
-        let sql = 'SELECT * FROM message WHERE MessageID = ?'
-        db.query(sql, [req.params.MessageId], (err, response) => {     // db.query dc truyen vao lenh sql, "?" dc thay bang tham so trong ngoac vuong
+
+    GetReceiver: (req, res) => {
+        let sql = 'SELECT * FROM message WHERE ReceiverID = ?'
+        db.query(sql, [req.params.ReceiverID], (err, response) => {     // db.query dc truyen vao lenh sql, "?" dc thay bang tham so trong ngoac vuong
             if (err) throw err
             res.json(response)
         })
     },
+
+    GetSender: (req, res) => {
+        let sql = 'SELECT * FROM message WHERE SenderID = ?'
+        db.query(sql, [req.params.SenderID], (err, response) => {
+            if (err) throw err
+            res.json(response)
+        })
+    },
+
+    // Lấy các tin nhắn giữa A và B
+    getMessageListBetweenAB: (req, res) => {
+        let sql = 'SELECT * FROM message Where SenderID = ? and ReceiverID = ? UNION SELECT * from message WHERE SenderID = ? and ReceiverID = ? order by SentDate ASC'
+        db.query(sql, [req.query.A, req.query.B, req.query.B, req.query.A], (err, response) => {
+            if (err) throw err
+            res.json(response)
+        })
+    },
+
 
     store: (req, res) => {
         let data = req.body;

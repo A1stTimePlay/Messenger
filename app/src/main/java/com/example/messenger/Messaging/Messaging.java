@@ -41,24 +41,28 @@ public class Messaging extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sender= etSender.getText().toString();
-                String receiver= etReceiver.getText().toString();
-                String content= etContent.getText().toString();
-                String sentDate= etSentDate.getText().toString();
+                sendMessage();
+            }
+        });
+    }
 
-                final Message message= new Message(sender, receiver, content, sentDate);
-                Call<Message> call= retrofitRoute.createMessage(message);
-                call.enqueue(new Callback<Message>() {
-                    @Override
-                    public void onResponse(Call<Message> call, Response<Message> response) {
-                        System.out.println(response.code());
-                    }
+    public void sendMessage(){
+        int sender= Integer.parseInt(etSender.getText().toString());
+        int receiver= Integer.parseInt(etReceiver.getText().toString());
+        String content= etContent.getText().toString();
+        String sentDate= etSentDate.getText().toString();
 
-                    @Override
-                    public void onFailure(Call<Message> call, Throwable t) {
-                        System.out.println(t.getMessage());
-                    }
-                });
+        final Message message= new Message(sender, receiver, content, sentDate);
+        Call<Message> call= retrofitRoute.createMessage(message);
+        call.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                System.out.println(response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                System.out.println(t.getMessage());
             }
         });
     }
