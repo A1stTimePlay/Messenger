@@ -1,11 +1,9 @@
-package com.example.messenger.Messaging;
+package com.example.messenger.View.Messaging;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,7 +12,6 @@ import com.example.messenger.R;
 import com.example.messenger.Utils.RetrofitRoute;
 import com.example.messenger.Utils.RetrofitUtils;
 
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MessagingBeta extends AppCompatActivity {
+public class View extends AppCompatActivity {
 
     private List<Message> messageList;
     private EditText etChatBox;
@@ -39,9 +36,9 @@ public class MessagingBeta extends AppCompatActivity {
 
         initVariable();
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        btnSend.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 showMessage();
                 sendMessage();
                 etChatBox.setText("");
@@ -62,9 +59,9 @@ public class MessagingBeta extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {    // Không hiểu sao nếu đem đoạn code này ra ngoài thì messageList rỗng
                 messageList=response.body();
-                adapter = new MessageListAdapter(MessagingBeta.this,messageList);
+                adapter = new MessageListAdapter(View.this,messageList);
                 recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MessagingBeta.this));
+                recyclerView.setLayoutManager(new LinearLayoutManager(View.this));
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.example.messenger.Messaging;
+package com.example.messenger.View.Messaging;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
