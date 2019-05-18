@@ -9,9 +9,10 @@ import com.example.messenger.View.Messaging.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String CurrentUser="";
+
     Button btnLogin;
     Button btnMessaging;
-    Button btnBeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

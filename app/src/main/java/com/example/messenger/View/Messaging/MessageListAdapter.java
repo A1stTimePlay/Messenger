@@ -15,27 +15,27 @@ import com.example.messenger.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageListAdapter extends  RecyclerView.Adapter {
+public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private List<Message> MessageList;
-    private Context mContext;
+    private List<Message> messageList;
+    private Context context;
 
     public MessageListAdapter(Context context, List<Message> messageList) {
-        mContext = context;
-        MessageList= messageList;
+        this.context = context;
+        this.messageList= messageList;
     }
 
     @Override
     public int getItemCount() {
-        return MessageList.size();
+        return this.messageList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        Message message = (Message) MessageList.get(position);
+        Message message = (Message) this.messageList.get(position);
 
         // tạm thời cho sender lúc nào cũng có ID là 1
         if (message.getSenderID()==1) {
@@ -68,7 +68,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter {
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = (Message) MessageList.get(position);
+        Message message = (Message) this.messageList.get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:

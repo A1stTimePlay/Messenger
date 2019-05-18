@@ -1,10 +1,12 @@
 package com.example.messenger.View.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.messenger.MainActivity;
 import com.example.messenger.Presenter.Login.Presenter;
 import com.example.messenger.R;
 import com.example.messenger.Utils.RetrofitRoute;
@@ -65,11 +67,13 @@ public class View extends AppCompatActivity implements IView {
 
     @Override
     public void successful() {
-
+        MainActivity.CurrentUser= etUsername.getText().toString();
+        Intent intent = new Intent(this, com.example.messenger.View.FriendList.View.class);
+        this.startActivity(intent);
     }
 
     @Override
     public void decline() {
-
+        System.out.println("decline");
     }
 }
