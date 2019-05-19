@@ -13,14 +13,16 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnLogin;
     Button btnMessaging;
+    Button btnFriendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogin= (Button) findViewById(R.id.btnLogin);
-        btnMessaging= (Button) findViewById(R.id.btnMessaging);
+        btnLogin= findViewById(R.id.btnLogin);
+        btnMessaging= findViewById(R.id.btnMessaging);
+        btnFriendList= findViewById(R.id.btnFriendList);
 
         btnLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -33,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         btnMessaging.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                Intent doSomeThing= new Intent(MainActivity.this, View.class);
+                Intent doSomeThing= new Intent(MainActivity.this, com.example.messenger.View.Messaging.View.class);
+                startActivity(doSomeThing);
+            }
+        });
+
+        btnFriendList.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                Intent doSomeThing = new Intent(MainActivity.this, com.example.messenger.View.FriendList.View.class);
                 startActivity(doSomeThing);
             }
         });

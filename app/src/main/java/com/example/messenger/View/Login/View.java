@@ -46,10 +46,10 @@ public class View extends AppCompatActivity implements IView {
     }
 
     public void initVariable() {
-        etUsername = (EditText) findViewById(R.id.etUsername);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        btnSignIn = (Button) findViewById(R.id.btnSignin);
-        btnSignUp = (Button) findViewById(R.id.btnSignup);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnSignIn = findViewById(R.id.btnSignin);
+        btnSignUp = findViewById(R.id.btnSignup);
         retrofitRoute = RetrofitUtils.createRetrofitRoute();
     }
 

@@ -8,38 +8,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.messenger.Model.FriendListItem;
 import com.example.messenger.R;
 
 import java.util.List;
 
 public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private String[] friendList;
+    private List<FriendListItem> friendListItemList;
     private Context context;
 
-    public FriendListAdapter(Context context, String[] friendList){
+    public FriendListAdapter(Context context, List<FriendListItem> friendListItemList){
         this.context = context;
-        this.friendList = friendList;
+        this.friendListItemList = friendListItemList;
 
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View row = inflater.inflate(R.layout.item_friendlist, viewGroup, false);
-        Item item = new Item(row);
-        return item;
+        View view;
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_friendlist, viewGroup, false);
+        return new Item(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((Item)viewHolder).textView.setText(friendList[i]);
+        FriendListItem friendListItem = this.friendListItemList.get(i);
+        ((Item) viewHolder).bind(friendListItem);
     }
 
     @Override
     public int getItemCount() {
-        return this.friendList.length;
+        return friendListItemList.size();
     }
 
     public class Item extends RecyclerView.ViewHolder{
@@ -47,7 +48,12 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public Item(View itemView){
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tvItemFriendlist);
+
+            textView = itemView.findViewById(R.id.tvItemFriendList);
+        }
+
+        void bind(FriendListItem friendListItem){
+            textView.setText(Integer.toString(friendListItem.getFriendID()));
         }
     }
 }

@@ -31,6 +31,16 @@ public class View extends AppCompatActivity implements IView {
         setContentView(R.layout.activity_messaging_beta);
 
         initVariable();
+    }
+
+    public void initVariable() {
+        etChatBox = findViewById(R.id.edittext_chatbox);
+        btnSend = findViewById(R.id.button_chatbox_send);
+        recyclerView = findViewById(R.id.recyclerview_message_list);
+        messageList = new ArrayList<>();
+        presenter = new Presenter(this);
+
+        presenter.LoadMessage();
 
         btnSend.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -42,22 +52,9 @@ public class View extends AppCompatActivity implements IView {
         });
     }
 
-    public void initVariable() {
-        etChatBox = (EditText) findViewById(R.id.edittext_chatbox);
-        btnSend = (Button) findViewById(R.id.button_chatbox_send);
-        recyclerView = findViewById(R.id.recyclerview_message_list);
-        messageList = new ArrayList<>();
-        presenter = new Presenter(this);
-
-        presenter.LoadMessage();
-
-        adapter = new MessageListAdapter(this, messageList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
     public void fillRecycleView(List<Message> messageList){
-        adapter = new MessageListAdapter(this, messageList);
+        this.messageList = messageList;
+        adapter = new MessageListAdapter(this, this.messageList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

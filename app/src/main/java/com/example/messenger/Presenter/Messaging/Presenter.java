@@ -56,8 +56,5 @@ public class Presenter implements IPresenter {
                 System.out.println(t.getMessage());
             }
         });
-
     }
-
-
 }

@@ -35,7 +35,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        Message message = (Message) this.messageList.get(position);
+        Message message = this.messageList.get(position);
 
         // tạm thời cho sender lúc nào cũng có ID là 1
         if (message.getSenderID()==1) {
@@ -68,7 +68,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = (Message) this.messageList.get(position);
+        Message message = this.messageList.get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
@@ -85,8 +85,8 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
         SentMessageHolder(View itemView) {
             super(itemView);
 
-            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-            timeText = (TextView) itemView.findViewById(R.id.text_message_time);
+            messageText = itemView.findViewById(R.id.text_message_body);
+            timeText = itemView.findViewById(R.id.text_message_time);
         }
 
         void bind(Message message) {
@@ -104,10 +104,10 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
         ReceivedMessageHolder(View itemView) {
             super(itemView);
 
-            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-            timeText = (TextView) itemView.findViewById(R.id.text_message_time);
-            nameText = (TextView) itemView.findViewById(R.id.text_message_name);
-            profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
+            messageText = itemView.findViewById(R.id.text_message_body);
+            timeText = itemView.findViewById(R.id.text_message_time);
+            nameText = itemView.findViewById(R.id.text_message_name);
+            profileImage = itemView.findViewById(R.id.image_message_profile);
         }
 
         void bind(Message message) {

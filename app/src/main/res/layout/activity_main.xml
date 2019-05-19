@@ -27,5 +27,11 @@
             android:layout_height="wrap_content"
             android:text="@string/messaging" />
 
+        <Button
+            android:id="@+id/btnFriendList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FriendList" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
