@@ -9,7 +9,7 @@ import com.example.messenger.View.Messaging.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String CurrentUser="";
+    public static int CURRENT_USER_ID=0;
 
     Button btnLogin;
     Button btnMessaging;

@@ -47,33 +47,19 @@ public class View extends AppCompatActivity implements IView {
         btnSend = (Button) findViewById(R.id.button_chatbox_send);
         recyclerView = findViewById(R.id.recyclerview_message_list);
         messageList = new ArrayList<>();
-        presenter = new Presenter(this, messageList);
+        presenter = new Presenter(this);
 
         presenter.LoadMessage();
 
         adapter = new MessageListAdapter(this, messageList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-//        retrofitRoute= RetrofitUtils.createRetrofitRoute();
-//
-//        Call<List<Message>> call= retrofitRoute.getMessageBetweenAB(1,2);
-//        call.enqueue(new Callback<List<Message>>() {
-//            @Override
-//            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-//                messageList=response.body();
-//                adapter = new MessageListAdapter(View.this,messageList);
-//                recyclerView.setAdapter(adapter);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(View.this));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Message>> call, Throwable t) {
-//
-//            }
-//        });
-
-
+    public void fillRecycleView(List<Message> messageList){
+        adapter = new MessageListAdapter(this, messageList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void showMessage() {

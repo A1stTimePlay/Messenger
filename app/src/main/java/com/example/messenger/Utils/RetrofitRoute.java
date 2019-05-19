@@ -1,6 +1,7 @@
 package com.example.messenger.Utils;
 
 import com.example.messenger.Model.Account;
+import com.example.messenger.Model.FriendListItem;
 import com.example.messenger.Model.Message;
 
 import java.util.List;
@@ -25,5 +26,8 @@ public interface RetrofitRoute {
 
     @GET("message")
     Call<List<Message>> getMessageBetweenAB(@Query("A") int accountA, @Query("B") int accountB);
+
+    @GET("friendlist")
+    Call<List<FriendListItem>> getFriendList(@Query("AccountID") int accountID);
 
 }

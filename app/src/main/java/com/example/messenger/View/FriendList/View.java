@@ -20,6 +20,6 @@ public class View extends AppCompatActivity implements IView {
         textView = (TextView) findViewById(R.id.textView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        textView.setText(MainActivity.CurrentUser);
+        textView.setText(MainActivity.CURRENT_USER_ID);
     }
 }

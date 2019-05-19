@@ -33,7 +33,7 @@ public class Presenter implements IPresenter {
                 List<Account> accounts = response.body();
                 for (Account account : accounts) {
                     if (username.compareTo(account.getUsername())==0 && password.compareTo(account.getPassword())==0) {
-                        view.successful();
+                        view.successful(account);
                         return;
                     }
                 }

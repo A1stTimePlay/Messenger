@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.messenger.MainActivity;
+import com.example.messenger.Model.Account;
 import com.example.messenger.Presenter.Login.Presenter;
 import com.example.messenger.R;
 import com.example.messenger.Utils.RetrofitRoute;
@@ -66,8 +67,8 @@ public class View extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void successful() {
-        MainActivity.CurrentUser= etUsername.getText().toString();
+    public void successful(Account account) {
+        MainActivity.CURRENT_USER_ID= account.getAccountID();
         Intent intent = new Intent(this, com.example.messenger.View.FriendList.View.class);
         this.startActivity(intent);
     }

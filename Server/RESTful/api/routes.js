@@ -2,6 +2,7 @@
 module.exports = function(app) {
   let accountCtrl = require('./controllers/AccountController');
   let messageCtrl = require('./controllers/MessageController');
+  let friendlistCtrl = require('./controllers/FriendListController');
 
 
   app.route('/Accounts')
@@ -25,5 +26,8 @@ module.exports = function(app) {
 
   app.route('/Message')
     .get(messageCtrl.getMessageListBetweenAB);
+	
+  app.route('/FriendList')
+    .get(friendlistCtrl.getFriendList);
 
 };
