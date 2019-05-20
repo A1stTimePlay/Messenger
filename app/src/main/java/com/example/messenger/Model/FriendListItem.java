@@ -4,11 +4,13 @@ public class FriendListItem {
     private int FriendListID;
     private int AccountID;
     private int FriendID;
+    private String FriendName;
 
-    public FriendListItem(int friendListID, int accountID, int friendID) {
+    public FriendListItem(int friendListID, int accountID, int friendID, String friendName) {
         FriendListID = friendListID;
         AccountID = accountID;
         FriendID = friendID;
+        FriendName = friendName;
     }
 
     public int getFriendListID() {
@@ -33,5 +35,13 @@ public class FriendListItem {
 
     public void setFriendID(int friendID) {
         FriendID = friendID;
+    }
+
+    public String getFriendName() {
+        return FriendName;
+    }
+
+    public void setFriendName(String friendName) {
+        FriendName = friendName;
     }
 }

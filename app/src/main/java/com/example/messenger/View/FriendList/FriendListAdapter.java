@@ -53,7 +53,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         void bind(FriendListItem friendListItem){
-            textView.setText(Integer.toString(friendListItem.getFriendID()));
+            textView.setText(friendListItem.getFriendName());
         }
     }
 }
