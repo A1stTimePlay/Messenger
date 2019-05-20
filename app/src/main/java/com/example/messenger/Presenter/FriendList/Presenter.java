@@ -22,10 +22,10 @@ public class Presenter implements IPresenter {
     }
 
     @Override
-    public void loadFriendList() {
+    public void loadFriendList(int current_user_id) {
         RetrofitRoute retrofitRoute = RetrofitUtils.createRetrofitRoute();
 
-        Call<List<FriendListItem>> call = retrofitRoute.getFriendList(1);
+        Call<List<FriendListItem>> call = retrofitRoute.getFriendList(current_user_id);
         call.enqueue(new Callback<List<FriendListItem>>() {
             @Override
             public void onResponse(Call<List<FriendListItem>> call, Response<List<FriendListItem>> response) {

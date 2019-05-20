@@ -37,7 +37,7 @@ public class View extends AppCompatActivity implements IView {
         friendListItemList = new ArrayList<>();
         presenter = new Presenter(this);
 
-        presenter.loadFriendList();
+        presenter.loadFriendList(MainActivity.CURRENT_USER_ID);
 
         textView.setText(Integer.toString(MainActivity.CURRENT_USER_ID));
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.messenger.MainActivity;
 import com.example.messenger.Model.Message;
 import com.example.messenger.R;
 
@@ -38,7 +39,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
         Message message = this.messageList.get(position);
 
         // tạm thời cho sender lúc nào cũng có ID là 1
-        if (message.getSenderID()==1) {
+        if (message.getSenderID()== MainActivity.CURRENT_USER_ID) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {

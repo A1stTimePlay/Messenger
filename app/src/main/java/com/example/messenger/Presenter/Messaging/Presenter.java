@@ -20,10 +20,10 @@ public class Presenter implements IPresenter {
     }
 
     @Override
-    public void LoadMessage() {
+    public void LoadMessage(int accountA, int accountB) {
         RetrofitRoute retrofitRoute = RetrofitUtils.createRetrofitRoute();
 
-        Call<List<Message>> call = retrofitRoute.getMessageBetweenAB(1, 2);
+        Call<List<Message>> call = retrofitRoute.getMessageBetweenAB(accountA, accountB);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {

@@ -11,6 +11,7 @@ import com.example.messenger.View.Messaging.View;
 public class MainActivity extends AppCompatActivity {
 
     public static int CURRENT_USER_ID=0;
+    public static int CURRENT_FRIEND_ID=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 2000);
     }
 }
