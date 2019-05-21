@@ -69,6 +69,7 @@ public class View extends AppCompatActivity implements IView {
     @Override
     public void successful(Account account) {
         MainActivity.CURRENT_USER_ID= account.getAccountID();
+        MainActivity.CURRENT_USER_NAME = account.getUsername();
         Intent intent = new Intent(this, com.example.messenger.View.FriendList.View.class);
         this.startActivity(intent);
     }

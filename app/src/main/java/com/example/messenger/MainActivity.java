@@ -11,7 +11,10 @@ import com.example.messenger.View.Messaging.View;
 public class MainActivity extends AppCompatActivity {
 
     public static int CURRENT_USER_ID=0;
+    public static String CURRENT_USER_NAME = "";
     public static int CURRENT_FRIEND_ID=0;
+    public static String CURRENT_FRIEND_NAME = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

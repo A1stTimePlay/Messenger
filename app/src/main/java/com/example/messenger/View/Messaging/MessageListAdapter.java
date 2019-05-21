@@ -13,10 +13,14 @@ import com.example.messenger.MainActivity;
 import com.example.messenger.Model.Message;
 import com.example.messenger.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
@@ -26,7 +30,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
 
     public MessageListAdapter(Context context, List<Message> messageList) {
         this.context = context;
-        this.messageList= messageList;
+        this.messageList = messageList;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
         Message message = this.messageList.get(position);
 
         // tạm thời cho sender lúc nào cũng có ID là 1
-        if (message.getSenderID()== MainActivity.CURRENT_USER_ID) {
+        if (message.getSenderID() == MainActivity.CURRENT_USER_ID) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -94,7 +98,16 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
             messageText.setText(message.getContent());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSentDate());
+            try {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date input = inputFormat.parse(message.getSentDate());
+
+                DateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                String output = outputFormat.format(input);
+                timeText.setText(output);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -115,9 +128,18 @@ public class MessageListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
             messageText.setText(message.getContent());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSentDate());
+            try {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date input = inputFormat.parse(message.getSentDate());
 
-            nameText.setText("placeholder");
+                DateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                String output = outputFormat.format(input);
+                timeText.setText(output);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            nameText.setText(MainActivity.CURRENT_FRIEND_NAME);
 
             // Insert the profile image from the URL into the ImageView.
             //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);

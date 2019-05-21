@@ -21,7 +21,6 @@ import java.util.List;
 
 public class View extends AppCompatActivity implements IView {
 
-    private TextView textView;
     private RecyclerView recyclerView;
     private List<FriendListItem> friendListItemList;
     private FriendListAdapter adapter;
@@ -36,14 +35,12 @@ public class View extends AppCompatActivity implements IView {
     }
 
     public void initVariable(){
-        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recyclerView);
         friendListItemList = new ArrayList<>();
         presenter = new Presenter(this);
 
         presenter.loadFriendList(MainActivity.CURRENT_USER_ID);
 
-        textView.setText(Integer.toString(MainActivity.CURRENT_USER_ID));
     }
 
     public void fillRecycleView(List<FriendListItem> friendListItemList){
@@ -51,6 +48,8 @@ public class View extends AppCompatActivity implements IView {
         adapter = new FriendListAdapter(this, this.friendListItemList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+        recyclerView.addItemDecoration(itemDecoration);
     }
 
     @Override

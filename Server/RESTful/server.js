@@ -14,6 +14,6 @@ app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 })
 
-app.listen(port,'192.168.211.51') // chỉnh ip về local ip của máy server
+app.listen(port,'192.168.1.16') // chỉnh ip về local ip của máy server
 
 console.log('RESTful API server started on: ' + port)

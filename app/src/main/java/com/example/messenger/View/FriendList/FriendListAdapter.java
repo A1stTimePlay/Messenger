@@ -3,6 +3,7 @@ package com.example.messenger.View.FriendList;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
                 MainActivity.CURRENT_FRIEND_ID = ((Item) viewHolder).FriendID;
+                MainActivity.CURRENT_FRIEND_NAME = ((Item)viewHolder).FriendName;
                 Intent intent = new Intent(context, com.example.messenger.View.Messaging.View.class);
                 context.startActivity(intent);
             }
@@ -95,19 +97,21 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class Item extends RecyclerView.ViewHolder {
         TextView textView;
-        LinearLayout parentLayout;
+        ConstraintLayout parentLayout;
         int FriendID;
+        String FriendName;
 
         public Item(View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.tvItemFriendList);
-            parentLayout = itemView.findViewById(R.id.linearLayout);
+            parentLayout = itemView.findViewById(R.id.constraintLayout);
         }
 
         void bind(FriendListItem friendListItem) {
             textView.setText(friendListItem.getFriendName());
             FriendID = friendListItem.getFriendID();
+            FriendName = friendListItem.getFriendName();
         }
     }
 }
