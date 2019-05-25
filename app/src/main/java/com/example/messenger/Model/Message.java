@@ -16,13 +16,6 @@ public class Message {
         SentDate = sentDate;
     }
 
-    public Message(String content, String sentDate){
-        SenderID = 1;
-        ReceiverID = 2;
-        Content = content;
-        SentDate= sentDate;
-    }
-
     public String getSentDate() {
         return SentDate;
     }

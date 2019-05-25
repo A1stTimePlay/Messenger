@@ -1,43 +1,34 @@
 package com.example.messenger;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
-import com.example.messenger.Login.Login;
-import com.example.messenger.Messaging.MessagingBeta;
+import com.example.messenger.View.Messaging.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLogin;
-    Button btnMessaging;
-    Button btnBeta;
+    public static int CURRENT_USER_ID=0;
+    public static String CURRENT_USER_NAME = "";
+    public static int CURRENT_FRIEND_ID=0;
+    public static String CURRENT_FRIEND_NAME = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        btnLogin= (Button) findViewById(R.id.btnLogin);
-        btnMessaging= (Button) findViewById(R.id.btnMessaging);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Intent doSomeThing= new Intent(MainActivity.this, Login.class);
-                startActivity(doSomeThing);
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, com.example.messenger.View.Login.View.class);
+                startActivity(intent);
+                finish();
             }
-        });
-
-        btnMessaging.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent doSomeThing= new Intent(MainActivity.this, MessagingBeta.class);
-                startActivity(doSomeThing);
-            }
-        });
-
+        }, 2000);
     }
 }

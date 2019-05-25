@@ -3,7 +3,7 @@ use MessagingApp;
 
 create table account(
 	AccountID int auto_increment primary key,
-    Username varchar(30),
+    Username varchar(30) unique,
     Password varchar(20)
 );
 
@@ -21,24 +21,37 @@ alter table message auto_increment = 100; -- AccountID bắt đầu từ 0, Mess
 
 create table friendlist(
 	FriendListID int auto_increment primary key,
-    AccountID varchar(10),
-    FriendID varchar(10),
-    FriendUsername varchar(30),
-    constraint FK_friendlist foreign key(AccountID) references account(AccountID)
+    AccountID int,
+    FriendID int,
+    FriendName varchar(30),
+    constraint FK_account foreign key(AccountID) references account(AccountID),
+    constraint FK_friend foreign key(FriendID) references account(AccountID),
+    constraint FK_friend_name foreign key(FriendName) references account (Username)
 );
 
 -- Insert dữ liệu mẫu 
 -- Bảng Account
 insert into account(Username, Password)
-values ("abc", "123");
+values ("Nguyen Xuan An", "123");
 insert into account(Username, Password)
-values ("def", "123");
+values ("Tran The Khoi", "123");
 insert into account(Username, Password)
-values ("ghi", "123");
+values ("Rosa Shea", "123");
 insert into account(Username, Password)
-values ("jkl", "123");
+values ("Barbara Gillespie", "123");
 insert into account(Username, Password)
-values ("mno", "123");
+values ("Levi Beard", "123");
+insert into account(Username, Password)
+values ("Scarlet Lutz", "123");
+insert into account(Username, Password)
+values ("Darryl Randall", "123");
+insert into account(Username, Password)
+values ("Matilda Vega", "123");
+insert into account(Username, Password)
+values ("Dixie Valencia", "123");
+insert into account(Username, Password)
+values ("Ayden Ray", "123");
+
 -- Bảng Message
 insert into message(SenderID, ReceiverID, Content, SentDate)
 values ("1", "2", "Hello", "2019-4-1");
@@ -53,8 +66,21 @@ values ("4", "5", "Hello world", "2019-4-5");
 insert into message(SenderID, ReceiverID, Content, SentDate)
 values ("1", "3", "Hello world", "2019-4-6");
 
+-- Bảng FriendList
+insert into friendlist(AccountID, FriendID, FriendName)
+values(1, 2, "Tran The Khoi"); 
+insert into friendlist(AccountID, FriendID, FriendName)
+values(1, 3, "Rosa Shea"); 
+insert into friendlist(AccountID, FriendID, FriendName)
+values(1, 4, "Barbara Gillespie"); 
+insert into friendlist(AccountID, FriendID, FriendName)
+values(1, 5, "Levi Beard"); 
+
+insert into friendlist(AccountID, FriendID, FriendName)
+values(2, 1, "Nguyen Xuan An"); 
+
 ALTER USER 'root'@'localhost' IDENTIFIED BY '';
 
-drop database messagingapp
+
 
     

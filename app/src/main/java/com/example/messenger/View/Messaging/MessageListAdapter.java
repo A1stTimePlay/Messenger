@@ -1,4 +1,4 @@
-package com.example.messenger.Messaging;
+package com.example.messenger.View.Messaging;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,36 +9,41 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.messenger.MainActivity;
 import com.example.messenger.Model.Message;
 import com.example.messenger.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class MessageListAdapter extends  RecyclerView.Adapter {
+public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private List<Message> MessageList;
-    private Context mContext;
+    private List<Message> messageList;
+    private Context context;
 
     public MessageListAdapter(Context context, List<Message> messageList) {
-        mContext = context;
-        MessageList= messageList;
+        this.context = context;
+        this.messageList = messageList;
     }
 
     @Override
     public int getItemCount() {
-        return MessageList.size();
+        return this.messageList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        Message message = (Message) MessageList.get(position);
+        Message message = this.messageList.get(position);
 
         // tạm thời cho sender lúc nào cũng có ID là 1
-        if (message.getSenderID()==1) {
+        if (message.getSenderID() == MainActivity.CURRENT_USER_ID) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -68,7 +73,7 @@ public class MessageListAdapter extends  RecyclerView.Adapter {
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = (Message) MessageList.get(position);
+        Message message = this.messageList.get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
@@ -85,15 +90,24 @@ public class MessageListAdapter extends  RecyclerView.Adapter {
         SentMessageHolder(View itemView) {
             super(itemView);
 
-            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-            timeText = (TextView) itemView.findViewById(R.id.text_message_time);
+            messageText = itemView.findViewById(R.id.text_message_body);
+            timeText = itemView.findViewById(R.id.text_message_time);
         }
 
         void bind(Message message) {
             messageText.setText(message.getContent());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSentDate());
+            try {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date input = inputFormat.parse(message.getSentDate());
+
+                DateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                String output = outputFormat.format(input);
+                timeText.setText(output);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -104,19 +118,28 @@ public class MessageListAdapter extends  RecyclerView.Adapter {
         ReceivedMessageHolder(View itemView) {
             super(itemView);
 
-            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-            timeText = (TextView) itemView.findViewById(R.id.text_message_time);
-            nameText = (TextView) itemView.findViewById(R.id.text_message_name);
-            profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
+            messageText = itemView.findViewById(R.id.text_message_body);
+            timeText = itemView.findViewById(R.id.text_message_time);
+            nameText = itemView.findViewById(R.id.text_message_name);
+            profileImage = itemView.findViewById(R.id.image_message_profile);
         }
 
         void bind(Message message) {
             messageText.setText(message.getContent());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSentDate());
+            try {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date input = inputFormat.parse(message.getSentDate());
 
-            nameText.setText("placeholder");
+                DateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                String output = outputFormat.format(input);
+                timeText.setText(output);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            nameText.setText(MainActivity.CURRENT_FRIEND_NAME);
 
             // Insert the profile image from the URL into the ImageView.
             //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
