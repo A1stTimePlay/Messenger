@@ -10,3 +10,5 @@ cách khỏi động rest server:
                                                           curl -i -X DELETE http://192.168.1.16:3000/Account/a3  // chỉ xóa được các account chưa có message vì khoái ngoại
                                                           curl -i -X GET http://192.168.1.16:3000/Account/a1
 
+android:theme="@style/SplashTheme"
+

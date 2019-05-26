@@ -3,6 +3,10 @@
     package="com.example.messenger">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,16 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.FriendList.View"></activity>
+        <activity android:name=".View.AddFriend.View"></activity>
+
+        <service android:name=".Utils.SinchService" />
+
+        <activity android:name=".View.FriendList.View" />
         <activity android:name=".View.Messaging.View" />
-        <activity android:name=".View.Login.View" />
-        <activity android:name=".MainActivity" android:theme="@style/SplashTheme">
+        <activity android:name=".View.Login.View">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.CallScreen.CallScreenActivity" />
+        <activity
+            android:name=".View.IncomingCall.IncomingCallScreenActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

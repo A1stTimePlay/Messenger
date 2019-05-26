@@ -1,6 +1,7 @@
 package com.example.messenger.View.FriendList;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +10,6 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.messenger.MainActivity;
 import com.example.messenger.Model.FriendListItem;
@@ -24,6 +24,7 @@ public class View extends AppCompatActivity implements IView {
     private RecyclerView recyclerView;
     private List<FriendListItem> friendListItemList;
     private FriendListAdapter adapter;
+    private FloatingActionButton fabAddFriend;
     private Presenter presenter;
 
     @Override
@@ -35,6 +36,14 @@ public class View extends AppCompatActivity implements IView {
     }
 
     public void initVariable(){
+        fabAddFriend = findViewById(R.id.fabAddFriend);
+        fabAddFriend.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                Intent intent = new Intent(com.example.messenger.View.FriendList.View.this, com.example.messenger.View.AddFriend.View.class);
+                startActivity(intent);
+            }
+        });
         recyclerView = findViewById(R.id.recyclerView);
         friendListItemList = new ArrayList<>();
         presenter = new Presenter(this);
