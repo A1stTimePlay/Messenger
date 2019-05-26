@@ -1,4 +1,4 @@
-package com.example.messenger.View.FriendList;
+package com.example.messenger.Utils;
 
 import android.content.Context;
 import android.graphics.Rect;
