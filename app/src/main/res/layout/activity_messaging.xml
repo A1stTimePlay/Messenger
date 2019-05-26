@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            android:id="@+id/toolbar_messaging"
+            layout="@layout/toolbar_messaging" />
 
     </android.support.design.widget.AppBarLayout>
 

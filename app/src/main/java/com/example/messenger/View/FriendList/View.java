@@ -53,7 +53,7 @@ public class View extends MainActivity implements IView {
         recyclerView = findViewById(R.id.recyclerView);
         friendListItemList = new ArrayList<>();
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_friendlist);
         setSupportActionBar(toolbar);
 
         presenter = new Presenter(this);
@@ -78,6 +78,7 @@ public class View extends MainActivity implements IView {
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         android.support.v7.widget.SearchView searchView  = (android.support.v7.widget.SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Find something?");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

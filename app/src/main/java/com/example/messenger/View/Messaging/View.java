@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.messenger.MainActivity;
 import com.example.messenger.Model.Message;
@@ -31,6 +33,8 @@ public class View extends MainActivity implements IView {
     private Button btnCall;
     private RecyclerView recyclerView;
     private MessageListAdapter adapter;
+    private Toolbar toolbar;
+    private TextView tvToolbarTextView;
     private Presenter presenter;
 
     @Override
@@ -46,8 +50,14 @@ public class View extends MainActivity implements IView {
         btnCall = findViewById(R.id.button_chatbox_call);
         recyclerView = findViewById(R.id.recyclerview_message_list);
         messageList = new ArrayList<>();
-        presenter = new Presenter(this);
 
+        toolbar = findViewById(R.id.toolbar_messaging);
+        tvToolbarTextView = toolbar.findViewById(R.id.toolbarTextView);
+        setSupportActionBar(toolbar);
+        tvToolbarTextView.setText(MainActivity.CURRENT_FRIEND_NAME);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        presenter = new Presenter(this);
         presenter.LoadMessage(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID);
 
         btnSend.setOnClickListener(new android.view.View.OnClickListener() {
