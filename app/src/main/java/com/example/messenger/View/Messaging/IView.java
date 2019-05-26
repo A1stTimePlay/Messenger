@@ -5,7 +5,7 @@ import com.example.messenger.Model.Message;
 import java.util.List;
 
 public interface IView {
-    void showMessage();
-    void sendMessage();
+    void showMessage(Message message);
+    void sendMessage(Message message);
     void fillRecycleView(List<Message> messageList);
 }

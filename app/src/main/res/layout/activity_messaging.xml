@@ -64,11 +64,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="0"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/ripple_effect"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/send"
-                android:textSize="14sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"/>
 
             <Button
                 android:id="@+id/button_chatbox_call"
@@ -80,6 +81,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/call"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
         </LinearLayout>

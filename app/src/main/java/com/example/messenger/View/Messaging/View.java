@@ -53,9 +53,16 @@ public class View extends MainActivity implements IView {
         btnSend.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                showMessage();
-                sendMessage();
-                etChatBox.setText("");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                if (etChatBox.getText().toString().length() != 0) {
+                    Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
+                    showMessage(message);
+                    sendMessage(message);
+                    etChatBox.setText("");
+                } else {
+                    System.out.println("empty");
+                }
             }
         });
 
@@ -74,20 +81,12 @@ public class View extends MainActivity implements IView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void showMessage() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
+    public void showMessage(Message message) {
         messageList.add(message);
         adapter.notifyDataSetChanged();
     }
 
-    public void sendMessage() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
+    public void sendMessage(Message message) {
         presenter.SendMessage(message);
     }
 
