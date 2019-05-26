@@ -34,14 +34,6 @@ public class View extends MainActivity implements IView, SinchService.StartFaile
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //yêu cầu cấp quyền
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.READ_PHONE_STATE},100);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        }
-
         initVariable();
 
         btnSignIn.setOnClickListener(new android.view.View.OnClickListener() {

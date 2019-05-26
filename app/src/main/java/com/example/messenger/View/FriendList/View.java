@@ -24,7 +24,7 @@ import com.example.messenger.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class View extends AppCompatActivity implements IView {
+public class View extends MainActivity implements IView {
 
     private RecyclerView recyclerView;
     private List<FriendListItem> friendListItemList;
@@ -37,11 +37,6 @@ public class View extends AppCompatActivity implements IView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        }
 
         initVariable();
     }
@@ -97,5 +92,11 @@ public class View extends AppCompatActivity implements IView {
         });
 
         return true;
+    }
+
+    // User không thể quay lại màn hình login bằng nút back
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
