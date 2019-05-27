@@ -78,16 +78,17 @@
         android:layout_height="0dp"
         android:background="@color/greyish"
         android:layout_weight="1">
+
         <Button
             android:id="@+id/hangupButton"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="#B763E4"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:text="END call"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
