@@ -46,7 +46,8 @@ public class View extends MainActivity implements IView {
                 startActivity(intent);
             }
         });
-        recyclerView = findViewById(R.id.recyclerView);
+
+        recyclerView = findViewById(R.id.recyclerview_friend_list);
         friendListItemList = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar_friendlist);
@@ -70,7 +71,7 @@ public class View extends MainActivity implements IView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_friend_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         android.support.v7.widget.SearchView searchView  = (android.support.v7.widget.SearchView) searchItem.getActionView();
@@ -89,6 +90,12 @@ public class View extends MainActivity implements IView {
         });
 
         return true;
+    }
+
+    public void refresh(MenuItem item){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     // User không thể quay lại màn hình login bằng nút back

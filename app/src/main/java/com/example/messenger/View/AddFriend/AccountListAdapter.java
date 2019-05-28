@@ -1,7 +1,6 @@
-package com.example.messenger.View.FriendList;
+package com.example.messenger.View.AddFriend;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -11,30 +10,33 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.messenger.MainActivity;
+import com.example.messenger.Model.Account;
 import com.example.messenger.Model.FriendListItem;
+import com.example.messenger.Presenter.AddFriend.Presenter;
 import com.example.messenger.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
-    private List<FriendListItem> friendListItemList;
-    private List<FriendListItem> friendListItemListFull;
+    private List<Account> accountList;
+    private List<Account> accountListFull;
     private Context context;
 
-    public FriendListAdapter(Context context, List<FriendListItem> friendListItemList) {
+    public AccountListAdapter(Context context, List<Account> accountList){
         this.context = context;
-        this.friendListItemList = friendListItemList;
-        friendListItemListFull = new ArrayList<>(friendListItemList);
-
+        this.accountList = accountList;
+        accountListFull= new ArrayList<>(accountList);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        // xài chung item layout voi friendlist
         View view;
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_friendlist, viewGroup, false);
         return new Item(view);
@@ -42,44 +44,45 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
-        FriendListItem friendListItem = this.friendListItemList.get(i);
-        ((Item) viewHolder).bind(friendListItem);
+        Account account = this.accountList.get(i);
+        ((Item)viewHolder).bind(account);
         ((Item) viewHolder).parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.CURRENT_FRIEND_ID = ((Item) viewHolder).FriendID;
-                MainActivity.CURRENT_FRIEND_NAME = ((Item)viewHolder).FriendName;
-                Intent intent = new Intent(context, com.example.messenger.View.Messaging.View.class);
-                context.startActivity(intent);
+                FriendListItem friendListItem = new FriendListItem(MainActivity.CURRENT_USER_ID,((Item) viewHolder).AccountID,((Item) viewHolder).AccountName);
+                Presenter presenter = new Presenter();
+                presenter.addFriend(friendListItem);
+                Toast.makeText(context, "Added "+friendListItem.getFriendName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return friendListItemList.size();
+        return accountList.size();
     }
 
     @Override
     public Filter getFilter() {
-        return friendListItemListFilter;
+        return accountListFilter;
     }
 
-    private Filter friendListItemListFilter = new Filter() {
+    private Filter accountListFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<FriendListItem> filteredList = new ArrayList<>();
+            List<Account> filteredList = new ArrayList<>();
 
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(friendListItemListFull);
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(accountListFull);
             }
-            else {
+            else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (FriendListItem item: friendListItemListFull){
-                    if (item.getFriendName().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
+                for (Account account : accountListFull){
+                    if (account.getUsername().toLowerCase().contains(filterPattern)){
+                        filteredList.add(account);
                     }
+
                 }
             }
             FilterResults results = new FilterResults();
@@ -89,29 +92,29 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            friendListItemList.clear();
-            friendListItemList.addAll((List)results.values);
+            accountList.clear();
+            accountList.addAll((List)results.values);
             notifyDataSetChanged();
         }
     };
 
     public class Item extends RecyclerView.ViewHolder {
-        TextView friendName;
+        TextView textView;
         ConstraintLayout parentLayout;
-        int FriendID;
-        String FriendName;
+        int AccountID;
+        String AccountName;
 
         public Item(View itemView) {
             super(itemView);
 
-            friendName = itemView.findViewById(R.id.tvItemFriendList);
+            textView = itemView.findViewById(R.id.tvItemFriendList);
             parentLayout = itemView.findViewById(R.id.constraintLayout);
         }
 
-        void bind(FriendListItem friendListItem) {
-            friendName.setText(friendListItem.getFriendName());
-            FriendID = friendListItem.getFriendID();
-            FriendName = friendListItem.getFriendName();
+        void bind(Account addFriendItem) {
+            textView.setText(addFriendItem.getUsername());
+            AccountID = addFriendItem.getAccountID();
+            AccountName = addFriendItem.getUsername();
         }
     }
 }

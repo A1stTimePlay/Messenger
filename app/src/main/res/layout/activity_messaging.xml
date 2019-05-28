@@ -30,21 +30,14 @@
             android:layout_weight="1"
             android:layout_marginBottom="8dp"/>
 
-        <!-- A horizontal line between the chatbox and RecyclerView -->
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="0dp"
-            android:background="#dfdfdf" />
-
         <LinearLayout
             android:id="@+id/layout_chatbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:minHeight="48dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:elevation="4dp">
 
             <EditText
                 android:id="@+id/edittext_chatbox"

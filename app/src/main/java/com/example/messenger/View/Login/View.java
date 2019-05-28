@@ -60,15 +60,17 @@ public class View extends MainActivity implements IView, SinchService.StartFaile
     }
 
     public void SignIn() {
-        final String username = etUsername.getText().toString();
-        final String password = etPassword.getText().toString();
-        presenter.Authenticate(username, password);
+        String username = etUsername.getText().toString();
+        String password = etPassword.getText().toString();
+        Account account = new Account(username, password);
+        presenter.Authenticate(account);
     }
 
     public void SignUp() {
-        final String username = etUsername.getText().toString();
-        final String password = etPassword.getText().toString();
-        presenter.CreateAccount(username, password);
+        String username = etUsername.getText().toString();
+        String password = etPassword.getText().toString();
+        Account account = new Account(username, password);
+        presenter.CreateAccount(account);
     }
 
     @Override

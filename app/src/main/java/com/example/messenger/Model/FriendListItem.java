@@ -6,8 +6,7 @@ public class FriendListItem {
     private int FriendID;
     private String FriendName;
 
-    public FriendListItem(int friendListID, int accountID, int friendID, String friendName) {
-        FriendListID = friendListID;
+    public FriendListItem(int accountID, int friendID, String friendName) {
         AccountID = accountID;
         FriendID = friendID;
         FriendName = friendName;

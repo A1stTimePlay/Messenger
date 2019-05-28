@@ -1,13 +1,10 @@
 package com.example.messenger.View.Messaging;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,12 +60,14 @@ public class View extends MainActivity implements IView {
         btnSend.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
                 if (etChatBox.getText().toString().length() != 0) {
+                    // format thoi gian hien tai
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+
                     Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
-                    showMessage(message);
                     sendMessage(message);
+
                     etChatBox.setText("");
                 } else {
                     System.out.println("empty");
@@ -91,12 +90,13 @@ public class View extends MainActivity implements IView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void showMessage(Message message) {
+    public void sendMessage(Message message) {
+
+        // them message vua gui vao recycler view
         messageList.add(message);
         adapter.notifyDataSetChanged();
-    }
 
-    public void sendMessage(Message message) {
+        // gui message len server
         presenter.SendMessage(message);
     }
 
