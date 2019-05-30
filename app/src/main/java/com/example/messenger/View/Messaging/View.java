@@ -15,8 +15,15 @@ import com.example.messenger.Presenter.Messaging.Presenter;
 import com.example.messenger.R;
 import com.example.messenger.Utils.SinchService;
 import com.example.messenger.View.CallScreen.CallScreenActivity;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.sinch.android.rtc.calling.Call;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,6 +40,7 @@ public class View extends MainActivity implements IView {
     private Toolbar toolbar;
     private TextView tvToolbarTextView;
     private Presenter presenter;
+    private Socket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,8 @@ public class View extends MainActivity implements IView {
                     Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
                     sendMessage(message);
 
+                    socket.emit("messagedetection", MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, message.getContent(), message.getSentDate());
+
                     etChatBox.setText("");
                 } else {
                     System.out.println("empty");
@@ -79,6 +89,40 @@ public class View extends MainActivity implements IView {
             @Override
             public void onClick(android.view.View v) {
                 videoCall();
+            }
+        });
+
+        try {
+            socket = IO.socket("http://192.168.1.16:3000");
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+
+        }
+
+        socket.on("message", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject data = (JSONObject) args[0];
+                        try{
+                            if (data.getInt("receiverID") == MainActivity.CURRENT_USER_ID){
+                                int senderID = data.getInt("senderID");
+                                int receiverID = data.getInt("receiverID");
+                                String messageContent = data.getString("messageContent");
+                                String sentDate = data.getString("sentDate");
+                                Message message = new Message(senderID, receiverID, messageContent, sentDate);
+                                messageList.add(message);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        } catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }

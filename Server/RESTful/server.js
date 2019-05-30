@@ -4,16 +4,53 @@ const bodyParser = require('body-parser')
 require('dotenv').load()
 const port = process.env.PORT || 3000
 
+http = require('http'),
+server = http.createServer(app),
+io = require('socket.io').listen(server);
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 let routes = require('./api/routes') //importing route
 routes(app)
 
+io.on('connection', (socket) => {
+
+                             console.log('user connected')
+
+socket.on('join', function(userNickname) {
+
+        console.log(userNickname +" : has joined the chat "  );
+
+        socket.broadcast.emit('userjoinedthechat',userNickname +" : has joined the chat ");
+    });
+
+socket.on('messagedetection', (senderID, receiverID, messageContent, sentDate) => {
+
+       //log the message in console
+
+       console.log(senderID+" :" +messageContent)
+        //create a message object
+       let  message = {"senderID": senderID, "receiverID":receiverID, "messageContent": messageContent, "sentDate": sentDate}
+          // send the message to the client side
+       io.emit('message', message );
+
+      });
+
+ socket.on('disconnect', function() {
+    console.log( ' user has left ')
+    socket.broadcast.emit("userdisconnect"," user has left ")
+
+});
+
+});
+
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 })
 
-app.listen(port,'192.168.1.16') // chỉnh ip về local ip của máy server
+server.listen(3000,()=>{
 
-console.log('RESTful API server started on: ' + port)
+console.log('Node app is running on port 3000');
+
+});

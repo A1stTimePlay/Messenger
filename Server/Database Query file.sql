@@ -81,7 +81,3 @@ insert into friendlist(AccountID, FriendID, FriendName)
 values(2, 1, "Nguyen Xuan An"); 
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '';
-
-
-
-    
