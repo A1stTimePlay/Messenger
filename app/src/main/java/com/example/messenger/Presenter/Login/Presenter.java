@@ -20,7 +20,7 @@ public class Presenter implements IPresenter {
     }
 
     @Override
-    public void Authenticate(Account account) {
+    public void Authenticate(final Account account) {
         RetrofitRoute retrofitRoute = RetrofitUtils.createRetrofitRoute();
         Call<List<Account>> call = retrofitRoute.getAccount();
         call.enqueue(new Callback<List<Account>>() {
@@ -31,9 +31,9 @@ public class Presenter implements IPresenter {
                 }
 
                 List<Account> accounts = response.body();
-                for (Account account : accounts) {
-                    if (account.getUsername().compareTo(account.getUsername())==0 && account.getPassword().compareTo(account.getPassword())==0) {
-                        view.successful(account);
+                for (Account accountTemp : accounts) {
+                    if ((account.getUsername().compareTo(accountTemp.getUsername())==0) && (account.getPassword().compareTo(accountTemp.getPassword())==0)) {
+                        view.successful(accountTemp);
                         return;
                     }
                 }
