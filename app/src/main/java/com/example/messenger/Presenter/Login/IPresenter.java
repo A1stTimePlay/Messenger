@@ -1,6 +1,8 @@
 package com.example.messenger.Presenter.Login;
 
+import com.example.messenger.Model.Account;
+
 public interface IPresenter {
-    void Authenticate(String username, String password);
-    void CreateAccount(String username, String password);
+    void Authenticate(Account account);
+    void CreateAccount(Account account);
 }

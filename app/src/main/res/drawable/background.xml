@@ -5,13 +5,13 @@
         <shape>
             <gradient
                 android:startColor="@color/colorAccent"
-                android:endColor="@color/purple"
+                android:endColor="@color/colorPrimaryDark"
                 android:angle="135"/>
         </shape>
     </item>
 
     <item>
-        <bitmap android:src="@drawable/logo"
+        <bitmap android:src="@raw/logo"
             android:gravity="center"/>
     </item>
 

@@ -30,4 +30,7 @@ public interface RetrofitRoute {
     @GET("friendlist")
     Call<List<FriendListItem>> getFriendList(@Query("AccountID") int accountID);
 
+    @POST("friendlist")
+    Call<FriendListItem>addFriend(@Body FriendListItem friendListItem);
+
 }

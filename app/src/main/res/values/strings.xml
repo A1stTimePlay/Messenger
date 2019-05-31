@@ -11,4 +11,8 @@
     <string name="content">Text content</string>
     <string name="send">Send</string>
     <string name="sentdate">Sent Date</string>
+    <string name="call">Call</string>
+    <string name="enter_message">Enter message</string>
+    <string name="open">Messenger</string>
+    <string name="close">Messenger</string>
 </resources>

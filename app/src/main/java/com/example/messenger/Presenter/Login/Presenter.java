@@ -1,7 +1,5 @@
 package com.example.messenger.Presenter.Login;
 
-import android.widget.Toast;
-
 import com.example.messenger.Model.Account;
 import com.example.messenger.Utils.RetrofitRoute;
 import com.example.messenger.Utils.RetrofitUtils;
@@ -20,7 +18,7 @@ public class Presenter implements IPresenter {
     }
 
     @Override
-    public void Authenticate(final String username, final String password) {
+    public void Authenticate(final Account account) {
         RetrofitRoute retrofitRoute = RetrofitUtils.createRetrofitRoute();
         Call<List<Account>> call = retrofitRoute.getAccount();
         call.enqueue(new Callback<List<Account>>() {
@@ -31,14 +29,13 @@ public class Presenter implements IPresenter {
                 }
 
                 List<Account> accounts = response.body();
-                for (Account account : accounts) {
-                    if (username.compareTo(account.getUsername())==0 && password.compareTo(account.getPassword())==0) {
-                        view.successful(account);
+                for (Account accountTemp : accounts) {
+                    if ((account.getUsername().compareTo(accountTemp.getUsername())==0) && (account.getPassword().compareTo(accountTemp.getPassword())==0)) {
+                        view.successful(accountTemp);
                         return;
                     }
                 }
                 view.decline();
-
             }
 
             @Override
@@ -49,9 +46,9 @@ public class Presenter implements IPresenter {
     }
 
     @Override
-    public void CreateAccount(String username, String password) {
+    public void CreateAccount(Account account) {
         RetrofitRoute retrofitRoute = RetrofitUtils.createRetrofitRoute();
-        Account account= new Account(username, password);
+
         Call<Account> call = retrofitRoute.createAccount(account);
         call.enqueue(new Callback<Account>() {
             @Override

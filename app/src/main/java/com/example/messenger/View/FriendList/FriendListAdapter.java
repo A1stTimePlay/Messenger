@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.messenger.MainActivity;
@@ -73,7 +72,8 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(friendListItemListFull);
-            } else {
+            }
+            else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (FriendListItem item: friendListItemListFull){
@@ -96,7 +96,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     };
 
     public class Item extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView friendName;
         ConstraintLayout parentLayout;
         int FriendID;
         String FriendName;
@@ -104,12 +104,12 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public Item(View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id.tvItemFriendList);
+            friendName = itemView.findViewById(R.id.tvItemFriendList);
             parentLayout = itemView.findViewById(R.id.constraintLayout);
         }
 
         void bind(FriendListItem friendListItem) {
-            textView.setText(friendListItem.getFriendName());
+            friendName.setText(friendListItem.getFriendName());
             FriendID = friendListItem.getFriendID();
             FriendName = friendListItem.getFriendName();
         }

@@ -2,9 +2,10 @@ create database MessagingApp;
 use MessagingApp;
 
 create table account(
-	AccountID int auto_increment primary key,
-    Username varchar(30) unique,
-    Password varchar(20)
+	AccountID int auto_increment,
+    Username varchar(30) ,
+    Password varchar(20),
+    primary key(AccountID, Username)
 );
 
 create table message(
@@ -25,8 +26,8 @@ create table friendlist(
     FriendID int,
     FriendName varchar(30),
     constraint FK_account foreign key(AccountID) references account(AccountID),
-    constraint FK_friend foreign key(FriendID) references account(AccountID),
-    constraint FK_friend_name foreign key(FriendName) references account (Username)
+    constraint FK_friend foreign key(FriendID, FriendName) references account(AccountID, Username),
+    constraint CS_unique unique (AccountID, FriendID)
 );
 
 -- Insert dữ liệu mẫu 
@@ -80,7 +81,3 @@ insert into friendlist(AccountID, FriendID, FriendName)
 values(2, 1, "Nguyen Xuan An"); 
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '';
-
-
-
-    

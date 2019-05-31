@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/friend_list"
+        android:icon="@drawable/ic_people"
+        android:title="Friend list">
+
+    </item>
+    <item
+        android:id="@+id/add_friend"
+        android:icon="@drawable/ic_person_add"
+        android:title="Add a friend">
+
+    </item>
+    <item
+        android:id="@+id/log_out"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Log out">
+
+    </item>
+</menu>

@@ -28,6 +28,7 @@ module.exports = function(app) {
     .get(messageCtrl.getMessageListBetweenAB);
 	
   app.route('/FriendList')
-    .get(friendlistCtrl.getFriendList);
+    .get(friendlistCtrl.getFriendList)
+    .post(friendlistCtrl.store);
 
 };

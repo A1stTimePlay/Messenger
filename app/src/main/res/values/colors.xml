@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#aa00ff</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="purple">#aa00ff</color>
+    <color name="colorPrimary">#651FFF</color>
+    <color name="colorPrimaryDark">#6200ea</color>
+    <color name="colorAccent">#f50057</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#FF0000</color>
+    <color name="tim">#CC66FF</color>
+    <color name="greyish">#fff2f1f2</color>
+    <color name="sinch_purple">#fff2f1f2</color>
+    <color name="xanh">#CCFFFF</color>
+    <color name="tim2">#651fff</color>
+    <color name="tim3">#6633CC</color>
+    <color name="xanhlacay">#33CC33</color>
+
 </resources>
