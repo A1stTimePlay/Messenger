@@ -4,7 +4,6 @@ package com.example.messenger.View.IncomingCall;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import com.example.messenger.MainActivity;
 import com.example.messenger.R;
 import com.example.messenger.Utils.AudioPlayer;
 import com.example.messenger.Utils.SinchService;
-import com.example.messenger.View.CallScreen.CallScreenActivity;
 import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallEndCause;
@@ -21,9 +19,9 @@ import com.sinch.android.rtc.video.VideoCallListener;
 
 import java.util.List;
 
-public class IncomingCallScreenActivity extends MainActivity {
+public class View extends MainActivity {
 
-    static final String TAG = IncomingCallScreenActivity.class.getSimpleName();
+    static final String TAG = View.class.getSimpleName();
     private String mCallId;
     private AudioPlayer mAudioPlayer;
 
@@ -61,7 +59,7 @@ public class IncomingCallScreenActivity extends MainActivity {
         Call call = getSinchServiceInterface().getCall(mCallId);
         if (call != null) {
             call.answer();
-            Intent intent = new Intent(this, CallScreenActivity.class);
+            Intent intent = new Intent(this, com.example.messenger.View.CallScreen.View.class);
             intent.putExtra(SinchService.CALL_ID, mCallId);
             startActivity(intent);
         } else {
@@ -111,7 +109,7 @@ public class IncomingCallScreenActivity extends MainActivity {
 
     private OnClickListener mClickListener = new OnClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onClick(android.view.View v) {
             switch (v.getId()) {
                 case R.id.answerButton:
                     answerClicked();

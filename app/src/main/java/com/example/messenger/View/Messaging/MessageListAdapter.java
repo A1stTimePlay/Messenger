@@ -97,7 +97,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         void bind(Message message) {
             messageText.setText(message.getContent());
 
-            // Format the stored timestamp into a readable String using method.
+            // Format the stored timestamp into a readable String
             try {
                 DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date input = inputFormat.parse(message.getSentDate());
@@ -127,7 +127,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         void bind(Message message) {
             messageText.setText(message.getContent());
 
-            // Format the stored timestamp into a readable String using method.
+            // Format the stored timestamp into a readable String
             try {
                 DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date input = inputFormat.parse(message.getSentDate());
@@ -141,8 +141,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             nameText.setText(MainActivity.CURRENT_FRIEND_NAME);
 
-            // Insert the profile image from the URL into the ImageView.
-            //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
         }
     }
 }

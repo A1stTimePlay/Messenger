@@ -1,8 +1,5 @@
 package com.example.messenger.View.AddFriend;
 
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.example.messenger.MainActivity;
 import com.example.messenger.Model.Account;
-import com.example.messenger.Model.FriendListItem;
 import com.example.messenger.Presenter.AddFriend.Presenter;
 import com.example.messenger.R;
 import com.example.messenger.Utils.ItemOffsetDecoration;
-import com.example.messenger.View.FriendList.FriendListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,12 @@
 package com.example.messenger.View.FriendList;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -10,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.messenger.MainActivity;
 import com.example.messenger.Model.FriendListItem;
@@ -28,6 +33,9 @@ public class View extends MainActivity implements IView {
     private FloatingActionButton fabAddFriend;
     private Toolbar toolbar;
     private Presenter presenter;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class View extends MainActivity implements IView {
         setContentView(R.layout.activity_friend_list);
 
         initVariable();
+
+        createNavigationDrawer();
     }
 
     public void initVariable(){
@@ -55,7 +65,42 @@ public class View extends MainActivity implements IView {
 
         presenter = new Presenter(this);
         presenter.loadFriendList(MainActivity.CURRENT_USER_ID);
+    }
 
+    public void createNavigationDrawer(){
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch(id)
+                {
+                    case R.id.friend_list:
+                        Intent intent1 = new Intent(com.example.messenger.View.FriendList.View.this, com.example.messenger.View.FriendList.View.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.add_friend:
+                        Intent intent2 = new Intent(com.example.messenger.View.FriendList.View.this, com.example.messenger.View.AddFriend.View.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.log_out:
+                        Intent intent3 = new Intent (com.example.messenger.View.FriendList.View.this, com.example.messenger.View.Login.View.class);
+                        startActivity(intent3);
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
     }
 
     public void fillRecycleView(List<FriendListItem> friendListItemList){
@@ -90,6 +135,11 @@ public class View extends MainActivity implements IView {
         });
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return actionBarDrawerToggle.onOptionsItemSelected(item)||super.onOptionsItemSelected(item);
     }
 
     public void refresh(MenuItem item){

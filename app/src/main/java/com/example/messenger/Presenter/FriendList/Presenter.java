@@ -1,7 +1,5 @@
 package com.example.messenger.Presenter.FriendList;
 
-import android.content.Context;
-
 import com.example.messenger.Model.FriendListItem;
 import com.example.messenger.Utils.RetrofitRoute;
 import com.example.messenger.Utils.RetrofitUtils;

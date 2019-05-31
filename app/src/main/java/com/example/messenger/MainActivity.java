@@ -14,6 +14,10 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.example.messenger.Utils.SinchService;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
 
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     public static String CURRENT_USER_NAME = "";
     public static int CURRENT_FRIEND_ID=0;
     public static String CURRENT_FRIEND_NAME = "";
+    public static Socket socket;
 
     private SinchService.SinchServiceInterface mSinchServiceInterface;
 
@@ -36,6 +41,14 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        }
+
+        try {
+            socket = IO.socket("http://192.168.1.16:3000");
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+
         }
     }
 

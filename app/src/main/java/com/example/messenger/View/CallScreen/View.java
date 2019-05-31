@@ -3,7 +3,6 @@ package com.example.messenger.View.CallScreen;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,9 +27,9 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CallScreenActivity extends MainActivity {
+public class View extends MainActivity {
 
-    static final String TAG = CallScreenActivity.class.getSimpleName();
+    static final String TAG = View.class.getSimpleName();
     static final String CALL_START_TIME = "callStartTime";
     static final String ADDED_LISTENER = "addedListener";
 
@@ -51,7 +50,7 @@ public class CallScreenActivity extends MainActivity {
 
         @Override
         public void run() {
-            CallScreenActivity.this.runOnUiThread(new Runnable() {
+            View.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     updateCallDuration();
@@ -86,7 +85,7 @@ public class CallScreenActivity extends MainActivity {
 
         endCallButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 endCall();
             }
         });
@@ -191,7 +190,7 @@ public class CallScreenActivity extends MainActivity {
 
             localView.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(android.view.View v) {
                     //this toggles the front camera to rear camera and vice versa
                     vc.toggleCaptureDevicePosition();
                 }
@@ -229,7 +228,7 @@ public class CallScreenActivity extends MainActivity {
             mAudioPlayer.stopProgressTone();
             setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
             String endMsg = "Call ended: " + call.getDetails().toString();
-            Toast.makeText(CallScreenActivity.this, endMsg, Toast.LENGTH_LONG).show();
+            Toast.makeText(View.this, endMsg, Toast.LENGTH_LONG).show();
 
             endCall();
         }

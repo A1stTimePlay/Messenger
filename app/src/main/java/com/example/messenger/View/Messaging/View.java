@@ -14,16 +14,12 @@ import com.example.messenger.Model.Message;
 import com.example.messenger.Presenter.Messaging.Presenter;
 import com.example.messenger.R;
 import com.example.messenger.Utils.SinchService;
-import com.example.messenger.View.CallScreen.CallScreenActivity;
 import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.sinch.android.rtc.calling.Call;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,7 +36,6 @@ public class View extends MainActivity implements IView {
     private Toolbar toolbar;
     private TextView tvToolbarTextView;
     private Presenter presenter;
-    private Socket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +63,7 @@ public class View extends MainActivity implements IView {
         btnSend.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
+                // chỉ gửi tin nhắn khi người dùng có nhập vào nội dung
                 if (etChatBox.getText().toString().length() != 0) {
                     // format thoi gian hien tai
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -76,7 +72,7 @@ public class View extends MainActivity implements IView {
                     Message message = new Message(MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, etChatBox.getText().toString(), dtf.format(now));
                     sendMessage(message);
 
-                    socket.emit("messagedetection", MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, message.getContent(), message.getSentDate());
+                    MainActivity.socket.emit("messagedetection", MainActivity.CURRENT_USER_ID, MainActivity.CURRENT_FRIEND_ID, message.getContent(), message.getSentDate());
 
                     etChatBox.setText("");
                 } else {
@@ -92,23 +88,19 @@ public class View extends MainActivity implements IView {
             }
         });
 
-        try {
-            socket = IO.socket("http://192.168.1.16:3000");
-            socket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        createSocketEmit();
+    }
 
-        }
-
-        socket.on("message", new Emitter.Listener() {
+    public void createSocketEmit() {
+        MainActivity.socket.on("message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JSONObject data = (JSONObject) args[0];
-                        try{
-                            if (data.getInt("receiverID") == MainActivity.CURRENT_USER_ID){
+                        try {
+                            if (data.getInt("receiverID") == MainActivity.CURRENT_USER_ID) {
                                 int senderID = data.getInt("senderID");
                                 int receiverID = data.getInt("receiverID");
                                 String messageContent = data.getString("messageContent");
@@ -117,8 +109,7 @@ public class View extends MainActivity implements IView {
                                 messageList.add(message);
                                 adapter.notifyDataSetChanged();
                             }
-
-                        } catch(JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -127,7 +118,7 @@ public class View extends MainActivity implements IView {
         });
     }
 
-    public void fillRecycleView(List<Message> messageList){
+    public void fillRecycleView(List<Message> messageList) {
         this.messageList = messageList;
         adapter = new MessageListAdapter(this, this.messageList);
         recyclerView.setAdapter(adapter);
@@ -135,7 +126,6 @@ public class View extends MainActivity implements IView {
     }
 
     public void sendMessage(Message message) {
-
         // them message vua gui vao recycler view
         messageList.add(message);
         adapter.notifyDataSetChanged();
@@ -148,7 +138,7 @@ public class View extends MainActivity implements IView {
         Call call = getSinchServiceInterface().callUserVideo(MainActivity.CURRENT_FRIEND_NAME);
         String callId = call.getCallId();
 
-        Intent callScreen = new Intent(this, CallScreenActivity.class);
+        Intent callScreen = new Intent(this, com.example.messenger.View.CallScreen.View.class);
         callScreen.putExtra(SinchService.CALL_ID, callId);
         startActivity(callScreen);
     }
@@ -164,6 +154,5 @@ public class View extends MainActivity implements IView {
     @Override
     protected void onServiceConnected() {
         btnCall.setEnabled(true);
-
     }
 }
