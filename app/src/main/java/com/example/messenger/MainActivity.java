@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     public static int CURRENT_FRIEND_ID=0;
     public static String CURRENT_FRIEND_NAME = "";
     public static Socket socket;
+    public static String LOCAL_IP = "http://192.168.1.16:3000";
 
     private SinchService.SinchServiceInterface mSinchServiceInterface;
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         }
 
         try {
-            socket = IO.socket("http://192.168.1.16:3000");
+            socket = IO.socket(LOCAL_IP);
             socket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
